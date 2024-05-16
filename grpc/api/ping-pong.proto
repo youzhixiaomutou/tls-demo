@@ -1,0 +1,20 @@
+syntax = "proto3";
+package tls_demo.v1;
+
+// 生成的 Go 语言代码目录和包名
+option go_package = "tls-demo/v1;v1";
+
+// tls service
+service PingPongServer {
+  rpc PingPong (Request) returns (Response) {}
+}
+
+// request
+message Request {
+  string message = 1;
+}
+
+// response
+message Response {
+  string message = 1;
+}
