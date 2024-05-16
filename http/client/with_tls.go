@@ -12,24 +12,24 @@ func main() {
 		certFile = "cert/cert.pem"
 		keyFile  = "cert/key.pem"
 	)
-	// load cert and key
+	// 加载证书和私钥
 	cert, err := tls.LoadX509KeyPair(certFile, keyFile)
 	if err != nil {
 		panic(err)
 	}
-	// build TLS config
+	// 创建 TLS 配置
 	tlsConfig := &tls.Config{
 		Certificates:       []tls.Certificate{cert}, // 添加客户端证书
 		InsecureSkipVerify: true,                    // 跳过安全性校验，自签名证书必须跳过校验才能使用，生产环境如果使用权威证书则考虑关闭这个选项
 	}
 
-	// build HTTP client
+	// 创建 HTTP 客户端
 	client := &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: tlsConfig, // 传入 TLS 配置
 		},
 	}
-	// sent HTTP request
+	// 发送 HTTP 请求
 	url := "https://localhost:1443/ping"
 	resp, err := client.Get(url)
 	if err != nil {
@@ -40,6 +40,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	// return pong
+	// 请求返回 pong
 	fmt.Printf("response body = %s\n", body)
 }
